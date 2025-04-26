@@ -1,14 +1,29 @@
-import React from 'react'
-import Login from './Components/Login'
-import AddProduct from './Components/AddProduct'
-import ProductList from './Components/ProductList'
-function App() {
+// App.js
+import React from 'react';
+import {  BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './Components/Login';
+import ProductList from './Components/ProductList';
+import AddProduct from './Components/AddProduct';
+import Dashboard from './Components/Dashboard';
+import Footer from './Components/Footer';
+import Homepage from './Components/Homepage';
+import Header from './Components/Header';
+import Logout from './Components/Logout';
 
+function App() {
   return (
     <>
-      <ProductList/>
+    <Router>
+      <Routes>
+        <Route path='/' element={<><Header/><Homepage/></>}/>
+        <Route path="/login" element={<Login />}/>
+        <Route path="/products" element={<><Logout/> <ProductList /><Footer /></>} />
+        <Route path="/add-product" element={<><Logout/>  <AddProduct /><Footer /></>} />
+        <Route path="/dashboard" element={<> <Logout/> <Dashboard /><Footer /></>} />
+      </Routes>
+    </Router>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

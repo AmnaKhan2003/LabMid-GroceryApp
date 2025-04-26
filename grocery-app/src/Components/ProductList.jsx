@@ -13,26 +13,50 @@ function ProductList() {
   }, []);
 
   return (
-    <div className="p-6 max-w-xl mx-auto">
-      <h2 className="text-xl font-semibold mb-4 text-center">Product List</h2>
+    <div className="p-6 max-w-6xl mx-auto">
+      <h2 className="text-4xl font-semibold mb-8 text-center text-gray-800">Product List</h2>
       {products.length > 0 ? (
-        <ul className="space-y-2">
-          {products.map((product, index) => (
-            <li key={index} className="border p-4 rounded shadow-md bg-white">
-              <p><span className="font-semibold">Name:</span> {product.name}</p>
-              <p><span className="font-semibold">Type:</span> {product.type}</p>
-              <p><span className="font-semibold">Quantity:</span> {product.quantity}</p>
-              <p><span className="font-semibold">Price:</span> {product.price} Rs</p>
-              <p><span className="font-semibold">Description:</span> {product.description}</p>
-
-            </li>
-          ))}
-        </ul>
+        <div className="overflow-x-auto shadow-lg rounded-lg">
+          <table className="table-auto w-full border-collapse">
+            <thead className="w-full bg-blue-500 py-2 rounded bg-gradient-to-r from-green-500 to-green-400 text-gray-700">
+              <tr>
+                <th className="border border-gray-300 px-6 py-3">Image</th>
+                <th className="border border-gray-300 px-6 py-3">Name</th>
+                <th className="border border-gray-300 px-6 py-3">Type</th>
+                <th className="border border-gray-300 px-6 py-3">Quantity</th>
+                <th className="border border-gray-300 px-6 py-3">Price (Rs)</th>
+                <th className="border border-gray-300 px-6 py-3">Description</th>
+              </tr>
+            </thead>
+            <tbody className="text-gray-700">
+              {products.map((product, index) => (
+                <tr
+                  key={index}
+                  className= 'hover:bg-green-100 transition'
+                >
+                  <td className="border border-gray-300 px-4 py-2">
+                    <img
+                      src={product.url}
+                      alt={product.name}
+                      className="w-16 h-16 object-cover mx-auto rounded-lg shadow-md"
+                    />
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2 font-semibold">{product.name}</td>
+                  <td className="border border-gray-300 px-4 py-2">{product.type}</td>
+                  <td className="border border-gray-300 px-4 py-2">{product.quantity}</td>
+                  <td className="border border-gray-300 px-4 py-2">{product.price}</td>
+                  <td className="border border-gray-300 px-4 py-2">{product.description}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       ) : (
-        <p>No products found</p>
+        <p className="text-gray-600 text-center">No products found</p>
       )}
     </div>
   );
+  
 }
 
 export default ProductList;
