@@ -1,24 +1,30 @@
-import React from 'react'
-import Login from './Components/Login'
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import AddProduct from './Components/AddProduct'
-import ProductList from './Components/ProductList'
-import Header from './Components/Customer/Header'
-import MainPage from './Components/Customer/MainPage';
-function App() {
 
+// App.js
+import React from 'react';
+import {  BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './Components/Login';
+import ProductList from './Components/ProductList';
+import AddProduct from './Components/AddProduct';
+import Dashboard from './Components/Dashboard';
+import Footer from './Components/Footer';
+import Homepage from './Components/Homepage';
+import Header from './Components/Header';
+import Logout from './Components/Logout';
+
+function App() {
   return (
     <>
-      <div>
-        <Header/>
-        <Routes>
-          <Route path='/login' element={<Login/>}/>
-          <Route path='/' element={<MainPage/>}/>
-
-        </Routes>
-      </div>
+    <Router>
+      <Routes>
+        <Route path='/' element={<><Header/><Homepage/></>}/>
+        <Route path="/login" element={<Login />}/>
+        <Route path="/products" element={<><Logout/> <ProductList /><Footer /></>} />
+        <Route path="/add-product" element={<><Logout/>  <AddProduct /><Footer /></>} />
+        <Route path="/dashboard" element={<> <Logout/> <Dashboard /><Footer /></>} />
+      </Routes>
+    </Router>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
