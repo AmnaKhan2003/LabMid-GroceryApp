@@ -1,4 +1,5 @@
 import React from 'react'
+import Products from './Customer/Products'
 export default function Homepage() {
   return (
     <div>
@@ -23,7 +24,9 @@ export default function Homepage() {
                 <img src='https://cdn-icons-png.flaticon.com/128/7557/7557560.png' className="w-8 h-8 ml-2 inline-block"
                 alt="drink Icon"/>
             </p>
+            <Products/>
         </div>
+
     </div> 
   
   )
