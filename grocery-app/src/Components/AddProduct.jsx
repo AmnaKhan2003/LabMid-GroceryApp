@@ -15,12 +15,12 @@ function AddProduct() {
             alert('Please fill all fields');
         } 
 
-       else if(price===""||isNaN(price)){
-            alert("Please Enter a Number")
+       else if(price===""||isNaN(price) || price<0){
+            alert("Please Enter a valid number")
         }
 
-        else if(quantity===""||isNaN(quantity)){
-            alert("Please Enter a Number")
+        else if(quantity===""||isNaN(quantity) ||quantity<0){
+            alert("Please Enter a valid number")
         }
         else {
             const newProduct = { name, type, quantity, price, description, url };

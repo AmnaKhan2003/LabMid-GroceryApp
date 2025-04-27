@@ -7,7 +7,6 @@ import ProductList from './Components/ProductList';
 import AddProduct from './Components/AddProduct';
 import Dashboard from './Components/Dashboard';
 import Footer from './Components/Footer';
-import Homepage from './Components/Homepage';
 import Header from './Components/Header';
 import Logout from './Components/Logout';
 import MainPage from './Components/Customer/MainPage'; 
