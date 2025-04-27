@@ -9,13 +9,13 @@ import Dashboard from './Components/Dashboard';
 import Footer from './Components/Footer';
 import Header from './Components/Header';
 import Logout from './Components/Logout';
-import MainPage from './Components/Customer/MainPage'; 
+import Homepage from './Components/Homepage';
 function App() {
   return (
     <>
     <Router>
       <Routes>
-        <Route path='/' element={<><Header/><MainPage/></>}/>
+        <Route path='/' element={<><Header/><Homepage/></>}/>
         <Route path="/login" element={<><Login /></>}/>
         <Route path="/products" element={<><Logout/> <ProductList /><Footer /></>} />
         <Route path="/add-product" element={<><Logout/>  <AddProduct /><Footer /></>} />
