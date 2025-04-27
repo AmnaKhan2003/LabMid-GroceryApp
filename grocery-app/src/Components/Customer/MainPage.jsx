@@ -1,6 +1,7 @@
 import React from 'react'
-import Products from './Customer/Products'
-export default function Homepage() {
+import Products from './Products'
+
+export default function MainPage() {
   return (
     <div>
         <div className="w-full flex justify-center mt-5">
@@ -13,8 +14,8 @@ export default function Homepage() {
 
             </div>
         </div>
-        <div className='mt-6 flex justify-center'>
-            <p className="text-2xl font-bold text-black flex items-center">
+        <div className='mt-6'>
+            <p className="text-2xl ml-8 font-bold text-black flex items-center">
                 Crave, Cook, Enjoy
                 <img
                 src="https://cdn-icons-png.flaticon.com/128/1625/1625048.png"
@@ -26,7 +27,6 @@ export default function Homepage() {
             </p>
             <Products/>
         </div>
-
     </div> 
   
   )
