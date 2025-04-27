@@ -11,6 +11,7 @@ import Homepage from './Components/Homepage';
 import Header from './Components/Header';
 import Logout from './Components/Logout';
 import MainPage from './Components/Customer/MainPage'; 
+import Cart from './Components/Customer/Cart';
 function App() {
   return (
     <>
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path='/' element={<><Header/><MainPage/></>}/>
         <Route path="/login" element={<><Login /></>}/>
+        <Route path="/cart" element={<><Cart/></>}/>
         <Route path="/products" element={<><Logout/> <ProductList /><Footer /></>} />
         <Route path="/add-product" element={<><Logout/>  <AddProduct /><Footer /></>} />
         <Route path="/dashboard" element={<> <Logout/> <Dashboard /><Footer /></>} />
