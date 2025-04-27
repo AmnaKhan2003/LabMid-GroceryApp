@@ -5,12 +5,10 @@ export default function Dashboard() {
 
   useEffect(() => {
     const data = localStorage.getItem('products');
+    const products = data ? JSON.parse(data) : [];
     let vegetables=0
     let fruits=0
     let others=0
-    let products=[]
-    if (data){
-        products=JSON.parse(data);
         products.forEach((product)=>{
             if(product.type==="Vegetable"){
                 vegetables++
@@ -24,7 +22,6 @@ export default function Dashboard() {
     
         })
         setCounts({total:products.length,vegetables,fruits,others})
-    }
   }, []);
 
   return (

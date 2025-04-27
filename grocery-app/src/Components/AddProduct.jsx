@@ -10,8 +10,19 @@ function AddProduct() {
 
     function handleSubmit(e){
         e.preventDefault();
-        if (name && type && quantity && price && description) {
+        if (!name || !type ||  !quantity || !price || !description) {
 
+            alert('Please fill all fields');
+        } 
+
+       else if(price===""||isNaN(price) || price<0){
+            alert("Please Enter a valid number")
+        }
+
+        else if(quantity===""||isNaN(quantity) ||quantity<0){
+            alert("Please Enter a valid number")
+        }
+        else {
             const newProduct = { name, type, quantity, price, description, url };
             const exists = localStorage.getItem('products');
             const products = exists ? JSON.parse(exists) : [];
@@ -25,11 +36,6 @@ function AddProduct() {
             setPrice('');
             setDescription('');
             setUrl('');
-
-
-        } 
-        else {
-            alert('Please fill all fields');
         }
     }
 
