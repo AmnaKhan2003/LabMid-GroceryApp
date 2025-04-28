@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import AddButton from './AddButton';
 
-export default function ProductModal({ image, name,type,price,description }){
+export default function ProductModal({ image, name,type,price,description,quantity}){
   const [isOpen, setIsOpen] = useState(false);
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
@@ -30,7 +30,7 @@ export default function ProductModal({ image, name,type,price,description }){
             <div className='mt-8'>
               {description} ....
             </div>
-            <div className='w-30 h-15 px-6 py-4 bg-gray-200 rounded-md shadow-md ml-30 mt-8'><AddButton/></div>
+            <div className='w-30 h-15 px-6 py-4 bg-gray-200 rounded-md shadow-md ml-30 mt-8'><AddButton image={image} type={type} name={name} price={price} description={description} quantity={quantity}/></div>
             <div className="mt-15 flex justify-end">
               <button onClick={closeModal} className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600" >
                 Close
