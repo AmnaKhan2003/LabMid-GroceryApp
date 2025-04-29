@@ -4,11 +4,14 @@ export default function Feedback() {
     const[name,setName]=useState('');
     const[email,setEmail]=useState('');
     const[description,setDescription]=useState('');
+    const[feedback,setFeedback]=useState([]);
 
     function handleSubmit(e) {
         e.preventDefault();
         if (name && email && description) {
             alert(`${name} Your Feedback Submitted Successfully`);
+            const data={name,email,description}
+            localStorage.setItem('feedback',JSON.stringify(data));
             setName('');
             setEmail('');
             setDescription('');
@@ -18,7 +21,7 @@ export default function Feedback() {
     }
   return (
     <div className="p-6 max-w-md mx-auto"> 
-    <h1 className="text-2xl font-bold mb-8 text-center text-gray-800">Happy Shopping !!!!!</h1>
+    <h1 className="text-2xl font-bold mb-8 text-center text-gray-800">Thankyou For Your Shopping !!!!!</h1>
 
     <h2 className="text-4xl font-semibold mb-8 text-center text-gray-800">Feedback</h2>
     <form  className="space-y-3" onSubmit={handleSubmit}>
