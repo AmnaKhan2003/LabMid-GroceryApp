@@ -1,15 +1,21 @@
 import React, { useState, useEffect} from 'react'
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 export default function Dashboard() {
   const [counts, setCounts] = useState({total:0, vegetables:0, fruits: 0, others:0});
 
-  useEffect(() => {
-    const data = localStorage.getItem('products');
-    const products = data ? JSON.parse(data) : [];
-    let vegetables=0
-    let fruits=0
-    let others=0
-        products.forEach((product)=>{
+
+   const fetchProducts = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/api/admin/products", {
+        withCredentials: true,
+      });
+      const products = response.data || [];
+      let vegetables=0
+      let fruits=0
+      let others=0
+      products.forEach((product)=>{
             if(product.type==="Vegetable"){
                 vegetables++
             }
@@ -22,6 +28,15 @@ export default function Dashboard() {
     
         })
         setCounts({total:products.length,vegetables,fruits,others})
+      
+    } catch (error) {
+      console.error("Error fetching companies:", error);
+    }
+  };
+
+
+    useEffect(() => {
+    fetchProducts();
   }, []);
 
   return (

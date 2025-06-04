@@ -1,16 +1,65 @@
 import React, { useState, useEffect } from 'react';
-
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 function ProductList() {
   const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
 
+    // Check session on mount
   useEffect(() => {
-    const data = localStorage.getItem('products');
-    if (data){
-        setProducts(JSON.parse(data));
-    } else {
-      setProducts([]);
-    }
+    const checkSession = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/admin/check-session", {
+          withCredentials: true,
+        });
+
+        if (!response.data.loggedIn) {
+          throw new Error("Session expired");
+        }
+      } catch (err) {
+        localStorage.removeItem('token');
+        toast.error("Please login First.");
+        navigate("/");
+      }
+    };
+
+    checkSession();
+
+    // Auto check every minute
+    const interval = setInterval(checkSession, 60000); // 1 minute
+
+    return () => clearInterval(interval);
   }, []);
+
+   const fetchProducts = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/api/admin/products", {
+        withCredentials: true,
+      });
+      const products = response.data || [];
+      setProducts(products);
+      
+    } catch (error) {
+      console.error("Error fetching companies:", error);
+    }
+  };
+
+
+    useEffect(() => {
+    fetchProducts();
+  }, []);
+
+   const updateData = async (id) => {
+    try {
+      await axios.put(`http://localhost:5000/api/admin/products/${id}`, {}, {
+        withCredentials: true,
+      });
+      fetchProducts();
+    } catch (error) {
+      console.error("Error updating status:", error);
+    }
+  };
 
   return (
     <div className="p-6 max-w-6xl mx-auto">
@@ -33,6 +82,7 @@ function ProductList() {
                 <tr
                   key={index}
                   className= 'hover:bg-green-100 transition'
+                  onClick={() => updateData(product._id)}
                 >
                   <td className="border border-gray-300 px-4 py-2">
                     <img

@@ -2,6 +2,8 @@
 // App.js
 import React from 'react';
 import {  BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Login from './Components/Login';
 import ProductList from './Components/ProductList';
 import AddProduct from './Components/AddProduct';
@@ -28,6 +30,7 @@ function App() {
 
       </Routes>
     </Router>
+     <ToastContainer />
     </>
   );
 }
