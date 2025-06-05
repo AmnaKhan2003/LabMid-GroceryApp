@@ -1,10 +1,32 @@
-import React from 'react'
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-
+import React, { useState, useEffect } from 'react';
 export default function Logout() {
     const navigate = useNavigate();
+
+
+    useEffect(() => {
+    const checkSession = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/admin/check-session", {
+          withCredentials: true,
+        });
+
+        if (!response.data.loggedIn) {
+          throw new Error("Session expired");
+        }
+      } catch (err) {
+        localStorage.removeItem('token');
+        toast.error("Please login First.");
+        navigate("/");
+      }
+    };
+
+    checkSession();
+    const interval = setInterval(checkSession, 60000);
+    return () => clearInterval(interval);
+  }, []);
 
     const handleLogout = async () => {
     localStorage.removeItem('token');
