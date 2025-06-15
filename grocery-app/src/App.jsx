@@ -1,5 +1,6 @@
 import React from 'react';
 import {  BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
 import Login from './Components/Login';
 import ProductList from './Components/ProductList';
 import AddProduct from './Components/AddProduct';
@@ -14,7 +15,10 @@ import Feedback from './Components/Customer/Feedback';
 import FrontPage from './Components/FrontPage';
 import SignUp from './Components/SignUp';
 import {ToastContainer} from 'react-toastify';
+import Profile from './Components/Customer/Profile';
 import Products from './Components/Customer/Products';
+import SliderImage from './Components/Customer/SliderImage';
+import Checkout from './Components/Customer/Checkout';
 function App() {
   return (
     <>
@@ -30,14 +34,18 @@ function App() {
             </div>
           }
         />
+        
         <Route path="/login" element={<><Header/><Login /></>}/>
+        <Route path="/profile/:email" element={<><Header/><Profile/></>}/>
         <Route path="/signup" element={<><Header/><SignUp/></>}/>
-        <Route path="/products" element={<><Header/><Products/></>}/>
+        <Route path="/productList" element={<><Header/><MainPage/></>}/>
         <Route path="/feedback" element={<><Header/><Feedback/></>}/>
+        <Route path="/checkout" element={<><Header/><Checkout/></>}/>
+
         <Route path="/cart" element={<><Cart/></>}/>
-        <Route path="/products" element={<><Logout/> <ProductList /><Footer /></>} />
-        <Route path="/add-product" element={<><Logout/>  <AddProduct /><Footer /></>} />
-        <Route path="/dashboard" element={<> <Logout/> <Dashboard /><Footer /></>} />
+        <Route path="/products" element={<><Header/> <ProductList /><Footer /></>} />
+        <Route path="/add-product" element={<><Header/>  <AddProduct /><Footer /></>} />
+        <Route path="/dashboard" element={<> <Header/> <Dashboard /><Footer /></>} />
 
       </Routes>
     </Router>

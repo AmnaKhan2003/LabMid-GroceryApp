@@ -1,12 +1,15 @@
 import User from "../../Database/UserDatabase/UserSchema.js";
 import bcrypt from 'bcryptjs'
-
+import { sendAdminToken } from "../../Utilis/Token.js";
 export const registerController = async(req,res)=>{
-    const {name , email ,password}=req.body;
+    const {name , email ,password,address,phone}=req.body;
     console.log(name);
     console.log(email);
     console.log(password);
+    console.log(address);
+    console.log(phone);
     try{
+        const role='User';
         const registerUser = await User.findOne({email});
         if (registerUser){
             return res.status(400).json({message : "User Already Exist !"})
@@ -24,7 +27,8 @@ export const registerController = async(req,res)=>{
                     "- Uppercase letter",
                     "- Lowercase letter",
                     "- Number",
-                    "- Special character"
+                    "- Special character" ,
+                    "- 8 Character Long"
                 ]
                 });
         }
@@ -32,12 +36,17 @@ export const registerController = async(req,res)=>{
         const newuser = new User({
             name,
             email,
-            password:hashedPassword
+            password:hashedPassword,
+            role:role,
+            address,
+            phone
         })
         console.log("showing new use")
         console.log(newuser);
 
         await newuser.save();
+         sendAdminToken(res, role, "Signup successful", 200);
+        
        return  res.status(200).json({message:"Register User Successfully" , newuser})
     }
     catch(error){

@@ -1,22 +1,37 @@
 import React, { useState, useEffect } from 'react';
 
 export default function AddButton({ image, name, type, price, description }) {
-  const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')));
+  const [cart, setCart] = useState([]);
+  const [parentCart,setParentCart]=useState([]);
+ useEffect(()=>{
+    try{
+      const data = JSON.parse(localStorage.getItem('cart'));
+      if(Array.isArray(data)){
+        setCart(data);
+        setParentCart((prev)=>[...prev,data]);
+      }
+
+    }
+    catch(error){
+      console.log("error in fetching cart")
+    }
+  },[])
+  useEffect(()=>{
+    localStorage.setItem('cart',JSON.stringify(cart));
+    console.log(localStorage.getItem('cart'))
+  },[cart])
 
   const currentItem = cart.find(item => item.name === name);
   const currentQuantity = currentItem ? currentItem.quantity : 0;
-  
   const add = () => {
     let updatedCart;
     if (currentItem) {
-      updatedCart = cart.map(item =>item.name === name ? { ...item, quantity: item.quantity + 1 } : item);
+      updatedCart= cart.map(item =>item.name === name ? { ...item, quantity: item.quantity + 1 } : item);
     } else {
       const newItem = { name, image, type, price, description, quantity: 1 };
       updatedCart = [...cart, newItem];
     }
-
     setCart(updatedCart);
-    localStorage.setItem('cart', JSON.stringify(updatedCart));
   };
 
   const remove = () => {
@@ -25,11 +40,9 @@ export default function AddButton({ image, name, type, price, description }) {
         item.name === name ? { ...item, quantity: item.quantity - 1 } : item
       );
       setCart(updatedCart);
-      localStorage.setItem('cart', JSON.stringify(updatedCart));
     } else if (currentItem && (currentItem.quantity === 1 || currentItem.quantity===0)) {
       const updatedCart = cart.filter(item => item.name !== name);
       setCart(updatedCart);
-      localStorage.setItem('cart', JSON.stringify(updatedCart));
     }
     
   };
