@@ -19,6 +19,8 @@ export default function Logout() {
       } catch (err) {
         localStorage.removeItem('token');
         localStorage.removeItem('email');
+        localStorage.removeItem('Parentcart');
+
         toast.error("Please login First.");
         navigate("/");
       }
@@ -32,6 +34,8 @@ export default function Logout() {
     const handleLogout = async () => {
     localStorage.removeItem('token');
     localStorage.removeItem('email');
+    localStorage.removeItem('Parentcart');
+
     await axios.post("http://localhost:5000/api/admin/logout", {}, { withCredentials: true });
     toast.success("Logged out successfully.");
     setTimeout(() => {

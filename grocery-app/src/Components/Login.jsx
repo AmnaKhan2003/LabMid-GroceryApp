@@ -42,11 +42,13 @@ function Login() {
           navigate("/products");
           toast.success("Login successful!");
           localStorage.setItem('email',email);
+          window.dispatchEvent(new Event('userLoggedIn'));
         }
         else{
           navigate("/productList",{state: {email}})
           toast.success("Login successful!");
           localStorage.setItem('email',email); 
+          window.dispatchEvent(new Event('userLoggedIn'));
         } 
       }
     } catch (error) {

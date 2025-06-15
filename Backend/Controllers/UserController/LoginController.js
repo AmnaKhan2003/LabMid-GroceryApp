@@ -32,6 +32,7 @@ export const fetchUser=async(req,res)=>{
         if (!user){
             return res.status(400).json("User not found!");
         }
+        console.log("indvidual User showing ")
         console.log(user);
         return res.status(200).json({user});
     }

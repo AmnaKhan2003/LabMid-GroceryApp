@@ -31,15 +31,16 @@ export default function SignUp() {
                   const TokenData=jwtDecode(Data);
                   const role =TokenData.role;
                   console.log(role);
+                  localStorage.setItem('email',email);
                   if(role ==="admin"){
                     navigate("/products");
-                    toast.success("Admin Admin");
-                    localStorage.setItem('email',email); 
+                    toast.success("Admin");
+                    window.dispatchEvent(new Event('userLoggedIn'));
                   }
                   else{
                     navigate("/productList", {state:{email}})
                     toast.success(`${response.data.newuser.name} successfully registered`);
-                    localStorage.setItem('email',email);
+                    window.dispatchEvent(new Event('userLoggedIn'));
                   } 
                 }
          

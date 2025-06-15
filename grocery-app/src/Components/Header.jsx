@@ -26,6 +26,8 @@ export default function Header() {
 
   const handleLogout = async () => {
     localStorage.removeItem('token');
+       localStorage.removeItem('email');
+    localStorage.removeItem('Parentcart');
     await axios.post("http://localhost:5000/api/admin/logout", {}, { withCredentials: true });
     toast.success("Logged out successfully.");
     setToggleHeader(false);
@@ -72,21 +74,37 @@ export default function Header() {
 
     return () => clearInterval(interval);
     }, []);
-    useEffect(() => {
-      const fetchData = async () => {
-        const StoredEmail =localStorage.getItem('email');
-        if (!email) return;
-        try {
-          const userData = await axios.get(`http://localhost:5000/api/User/indvidual/${StoredEmail}`);
-          console.log(userData.data);
-          setUserName(userData.data.user.name);
+   useEffect(() => {
+  const handleLoginEvent = () => {
+        const StoredEmail = localStorage.getItem('email');
+        if (StoredEmail) {
           setEmail(StoredEmail);
-        } catch (err) {
-          console.error("Error fetching user data:", err);
+          fetchUserData(StoredEmail);  
+          setToggleHeader(true);
         }
       };
-      fetchData();
+
+      window.addEventListener('userLoggedIn', handleLoginEvent);
+
+      return () => {
+        window.removeEventListener('userLoggedIn', handleLoginEvent);
+      };
+    }, []);
+    const fetchUserData = async (emailToUse) => {
+      try {
+        const userData = await axios.get(`http://localhost:5000/api/User/indvidual/${emailToUse}`);
+        setUserName(userData.data.user.name);
+      } catch (err) {
+        console.error("Error fetching user data:", err);
+      }
+    };
+    useEffect(() => {
+      const StoredEmail = localStorage.getItem('email');
+      if (!StoredEmail) return;
+      fetchUserData(StoredEmail);
     }, [location]);
+
+
 
 
   return (
