@@ -44,7 +44,10 @@ export default function Profile() {
       },{
         withCredentials : true
       });
+      if (userData){
         toast.success("Profile Updated Successfully ! ");
+
+      }
         setName(name);
         setPassword(password || '');
         setAddress(address),

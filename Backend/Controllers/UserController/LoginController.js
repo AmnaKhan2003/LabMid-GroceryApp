@@ -55,6 +55,7 @@ export const EditMember=async(req,res)=>{
         const newPassword = await bcrypt.hash(password,10);
         EditUser.password = newPassword;
         await EditUser.save();
+        res.status(200).json({message : "Profile Updated Successfully !"});
     }
     catch(error){
         console.log("Server Error");

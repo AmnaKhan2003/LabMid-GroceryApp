@@ -56,7 +56,7 @@ export default function ProductModal({ id, image, name, type, price, description
             let updatedCart;
   
             if (!existingItem) {
-              updatedCart = [...cartData, { _id:id, name, image, type, price, description, quantity: 1 }];
+              updatedCart = [...cartData, { _id:id, name,url:image, type, price, description, quantity: 1 }];
             } else {
               updatedCart = cartData.map(item =>
                 item.name === name ? { ...item, quantity: item.quantity + 1 } : item
