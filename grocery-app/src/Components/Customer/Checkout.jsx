@@ -76,7 +76,7 @@ export default function Checkout() {
       <div className="bg-white shadow-md rounded-xl p-6 w-full md:w-[500px] text-gray-800">
             <h2 className="text-lg font-bold mb-1">Your order from</h2>
             <p className="text-sm text-gray-600 mb-4 font-medium">
-                Pandamart - North Karachi (KHI)
+                Greeno - Islamabad (ISB)
             </p>
 
            {cartData.map((cart, index) => (
