@@ -49,6 +49,21 @@ export const EditMember=async(req,res)=>{
         if (!EditUser){
             return res.status(400).json({message : "Member Not Found !"});
         }
+        const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+       console.log("Maryam")
+        if (!regex.test(password)){
+            return res.status(400).json({
+                message: [
+                    "Password must include:",
+                    "- Uppercase letter",
+                    "- Lowercase letter",
+                    "- Number",
+                    "- Special character" ,
+                    "- 8 Character Long"
+                ]
+                });
+        }
+        console.log("Amna")
         EditUser.name = name || EditUser.name;
         EditUser.phone = phone || EditUser.phone;
         EditUser.address = address || EditUser.address;

@@ -44,9 +44,8 @@ export default function Profile() {
       },{
         withCredentials : true
       });
-      if (userData){
-        toast.success("Profile Updated Successfully ! ");
-
+      if (userData.data && userData.data.message) {
+        toast.success(userData.data.message);
       }
         setName(name);
         setPassword(password || '');
@@ -54,9 +53,17 @@ export default function Profile() {
         setPhone(phone);
        
       
-    } catch (err) {
-      console.error("Error fetching user data:", err);
-    }
+    } catch (error) {
+    if (error.response) {
+                console.error("Response error:", error.response.data);
+                const msg = error.response.data.message;
+                if (Array.isArray(msg)) {
+                  toast.error(msg.join('\n'));  
+                } else {
+                  toast.error(msg || "Registration failed");
+                }
+              }
+      }
   };
 
   return (
@@ -106,6 +113,7 @@ export default function Profile() {
             placeholder="Phone Number"
             className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
             value={phone}
+            pattern="\d{11}"
             onChange={(e) => setPhone(e.target.value)}
             required
           />
